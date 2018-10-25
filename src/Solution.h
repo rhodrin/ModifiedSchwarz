@@ -48,6 +48,10 @@ class Solution : public FunctionLike<cx_vec>
     colvec _constants;
     SolverData::Ptr _pSolverData;
     ClosureInterpolant _interpolant;
+    
+private:
+    Solution rdftDerivative(Solution sol, int n=1);
+    Solution dftDerivative(Solution sol);
 
 public:
     //! Empty solution -- nothing defined.
@@ -77,6 +81,9 @@ public:
 
     //! Dummy definition to satisfy abstract requirement.
     void evalInto(const cx_vec&, cx_vec&) const {}
+    
+    // DFT derivative method
+    Solution diff(int n=1) { return this->rdftDerivative(*this, n); }
 };
 
 }; // namespace ModifiedSchwarz
