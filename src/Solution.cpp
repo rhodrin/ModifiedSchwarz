@@ -109,14 +109,11 @@ Solution Solution::dftDerivative(Solution sol){
     }
     
     // Now build a new solution
-//     RealInterpolant test = sol.realPart();
-//     mat bd = test.boundaryData();
-//     colvec test = sol.constants();
-//     
-//     std::cout << test.size() << std::endl;
-//     std::cout << test << std::endl;
+    RealBoundaryValues dsr(BoundaryPoints(D,nf),real(val));
+    RealBoundaryValues dsi(BoundaryPoints(D,nf),imag(val));
+    colvec constants = sol.constants();
     
-    return sol;
+    return Solution(dsr, imag(constants), dsi);
 }
 
 }; // namespace ModifiedSchwarz
