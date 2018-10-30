@@ -92,10 +92,11 @@ Solution Solution::dftDerivative(Solution sol){
 
     cx_mat dk(nf,M,arma::fill::zeros);
     cx_mat p(nf,M);
+    cx_mat zeroc(1,1,arma::fill::zeros);
     for(int j=0;j<M;++j){
         dk.col(j) = cx_double(0.0,1.0)*dmult%fft(sv.col(j))/nf;
         p.col(j) = polyval(flipud(dk.rows(0,nf/2-1).col(j)), eij.col(j)) 
-                   +polyval(dk.rows(nf/2,nf-1).col(j), 1./eij.col(j));
+                   +polyval(join_cols(dk.rows(nf/2,nf-1).col(j),zeroc.col(0)), 1./eij.col(j));
         
     }
     
